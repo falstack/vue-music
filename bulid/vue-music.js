@@ -344,11 +344,165 @@ return /******/ (function(modules) { // webpackBootstrap
 	//
 	//
 	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
 	
 	
 	exports.default = {
 	    props: {
-	        source: {
+	        list: {
 	            default: null,
 	            required: true
 	        }
@@ -364,12 +518,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	            init: true,
 	            status: {
 	                playing: false,
-	                silent: false
+	                silent: false,
+	                menuShow: false
 	            },
 	            time: {
 	                cur: "00:00",
 	                all: "00:00"
-	            }
+	            },
+	            source: {}
 	        };
 	    },
 	
@@ -385,9 +541,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	                this.init = false;
 	
-	                this.$refs.audio.setAttribute('src', this.source.src);
+	                this.loadSource(this.list[0], false);
+	            }
+	        },
+	        loadSource: function loadSource(item) {
+	            var bool = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 	
-	                this.$refs.banner.setAttribute('src', this.source.img);
+	            this.source = item;
+	            this.$refs.audio.setAttribute('src', this.source.src);
+	            this.$refs.banner.setAttribute('src', this.source.img);
+	            if (bool) {
+	                this.$refs.audio.play();
+	                this.status.playing = true;
 	            }
 	        },
 	        formatSeconds: function formatSeconds(second) {
@@ -456,7 +621,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            audio.muted = !audio.muted;
 	        };
 	
-	        vm.$refs.paused.onclick = function () {
+	        this.$refs.paused.onclick = function () {
 	            vm.status.playing = !vm.status.playing;
 	            audio.paused ? audio.play() : audio.pause();
 	        };
@@ -505,7 +670,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    staticClass: "M-face"
 	  }), " ", _h('div', {
 	    staticClass: "M-control"
-	  }, [_h('div', [_h('a', [_s(source.name)]), " ", _h('a', [_s(source.player)])]), " ", _h('div', {
+	  }, [_h('div', {
+	    staticClass: "header"
+	  }, [_h('div', [_h('a', [_s(source.name)]), " ", _h('a', [_s(source.player)])]), " ", _h('button', {
+	    class: ['menu-btn', status.menuShow ? 'menu-click' : ''],
+	    on: {
+	      "click": function($event) {
+	        status.menuShow = !status.menuShow
+	      }
+	    }
+	  })]), " ", _h('div', {
 	    staticClass: "center"
 	  }, [_m(0), " ", _h('button', {
 	    ref: "paused",
@@ -528,7 +702,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    ref: "curvoice",
 	    staticClass: "M-cur-voice"
 	  })])])]), " ", _h('div', {
-	    staticClass: "bottom"
+	    staticClass: "footer"
 	  }, [_h('span', [_s(time.cur) + " / " + _s(time.all)])])])]), " ", _h('span', {
 	    ref: "alltime",
 	    staticClass: "M-allBar",
@@ -548,7 +722,35 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }],
 	    ref: "tip",
 	    staticClass: "M-tip"
-	  }, [_s(tipText), _m(1)])]), " ", _h('button', {
+	  }, [_s(tipText), _m(1)]), " ", _h('div', {
+	    class: ['M-menu', status.menuShow ? 'menu-show' : '']
+	  }, [_h('div', {
+	    staticClass: "header"
+	  }, [_m(2), " ", _h('span', {
+	    staticClass: "close",
+	    on: {
+	      "click": function($event) {
+	        status.menuShow = false
+	      }
+	    }
+	  }, ["×"])]), " ", _h('div', {
+	    staticClass: "body"
+	  }, [_l((list), function(item) {
+	    return _h('div', {
+	      staticClass: "item"
+	    }, [_h('div', {
+	      staticClass: "left"
+	    }, [_h('div', [_h('span', {
+	      staticClass: "name",
+	      on: {
+	        "click": function($event) {
+	          loadSource(item)
+	        }
+	      }
+	    }, [_s(item.name)])]), " ", _m(3)]), " ", _h('div', {
+	      staticClass: "right"
+	    }, ["\n                        " + _s(item.player) + "\n                    "])])
+	  })])])]), " ", _h('button', {
 	    staticClass: "toggle",
 	    on: {
 	      "click": musicToggle
@@ -558,6 +760,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return _h('button')
 	}},function (){with(this) {
 	  return _h('em', [_h('i')])
+	}},function (){with(this) {
+	  return _h('span', {
+	    staticClass: "list"
+	  }, ["歌曲列表"])
+	}},function (){with(this) {
+	  return _h('div', {
+	    staticClass: "hover"
+	  }, [_h('button', ["播"]), " ", _h('button', ["列"])])
 	}}]}
 	if (false) {
 	  module.hot.accept()

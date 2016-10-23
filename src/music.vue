@@ -6,7 +6,10 @@
     $music-face-size: 90px;
     $music-height : 115px;
     $color-blue: #00bfef;
-    $color-gray-hover: #e5e9ef;
+    $color-gray-light: #e5e9ef;
+    $color-gray-bg : #edece9;
+    $color-gray: #99a2aa;
+    $color-gray-hover: #6d757a;
 
     #music {
         width: $music-width;
@@ -21,6 +24,10 @@
         transition: left .6s ease;
         display: flex;
 
+        div {
+            box-sizing: border-box;
+        }
+
         button {
             background-repeat: no-repeat;
             background-size: contain;
@@ -29,6 +36,7 @@
             outline: none;
             border: none;
             cursor: pointer;
+            padding: 0;
         }
 
         .toggle {
@@ -47,6 +55,7 @@
             flex: 1;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
         .M-face {
@@ -66,8 +75,32 @@
             flex-direction: column;
 
             span {
-                color: #99a2aa;
+                color: $color-gray;
                 font-size: 12px;
+            }
+
+            .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                
+                .menu-btn {
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-image: url("./menu.png");
+                    background-size: 20px;
+                    width: 20px;
+                    height: 20px;
+                    transition: .4s;
+                }
+
+                .menu-click {
+                    transform:rotate(-90deg);
+                    -ms-transform:rotate(-90deg);
+                    -moz-transform:rotate(-90deg);
+                    -webkit-transform:rotate(-90deg);
+                    -o-transform:rotate(-90deg);
+                }
             }
 
             .center {
@@ -77,7 +110,7 @@
                 justify-content: space-between;
             }
 
-            .bottom {
+            .footer {
                 text-align: right;
             }
         }
@@ -110,13 +143,13 @@
             font-size: 10px;
             text-align: center;
             background-color: #fff;
-            border: solid 1px $color-gray-hover;
+            border: solid 1px $color-gray-light;
             border-radius: 3px;
 
             em {
                 border-width: 8px;
                 border-color: transparent;
-                border-top-color: $color-gray-hover;
+                border-top-color: $color-gray-light;
                 border-style: dashed dashed solid;
                 position: absolute;
                 left: 17px;
@@ -168,7 +201,7 @@
             width: 70px;
             height: 3px;
             vertical-align: middle;
-            background-color: $color-gray-hover;
+            background-color: $color-gray-light;
             cursor: pointer;
         }
 
@@ -194,6 +227,102 @@
         .voice-no {
             background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEQAAABACAYAAACjgtGkAAADyUlEQVR4Xu3b/VXbMBAAcJ01QOkG6QTVOw9QmKBs0HQCwgS0EwATABNAJ4AF7LoTkBFgAPv6jifnKX7+kGS3tkTyt6xYv0gn6aSAOHz2BODgsS9wAGn0iNlBlFJHSZKcAcApER0JIR7yPD+fq+fOCqKUUkmS3APAygQgous8zzdzoMwGgohrALhpazQRvVRV9akoipf/jTILCCLeAMC6r7FlWZ4URfEUNQjHCynloxBCDTU0ehAdLx4BgAPn4CdqEI4XQohLWwzWihYEERnCecaIDkTHi3shxPHg+GgpEBVI1/rCBSYaEJ940QYVBYhvvIgORMcLXnWeugyLoBZmSqmV3nTxIsorMI7BWdSQmbLr+6IsBiRNU54qJ+v6QYMg4hUAnPk2Ysrn2nqIUupYSnnB30NE26qqzsfsiBHxgvMwQgjeVV9nWfaw2+1yzJBSPk/ZqDF1NUF4bSOl/N2os9DlnNIEXZtMIjrfgSypd7TtZdI0fRBCfG1BdkIZ2HEXO5A0TVl/cFs+5ld3ebbZQxDxCQC+dNRhhWKRfng1Qcjlhf912RaQDQBc9nxvL4oFBld9FwwIvy0iFgDw2RXFBoOI/lRVdRwUiM7Q89CxRnHB4BkrKBDuGS4oXH4oZVn3jHr6Dg7EBUUPrc6JoonB5YME0Si8biqEEB98AnwbRtAgGoUXa3xU4YTShRE8iA9KH0YUIC4oQxhRgSRJYnPmM7iiDTao1oHU9QBMCNGLEjSIB0bt2IkSLMgIjF6UIEEsMX7pXHDflPyUZdmJuY4JDsQS4y7LsrVOKvWuU4joNs/z7zVKUCAuGGbQHVq8mSjBgPhgOKK8XeMKBgQRn5t30Rp7mLdh0rWvsRk+nJQyQThR67Qn8NlU2T5jZswsEuC9GLY9hYh+miBdSVzbNkxarplCTNO0K8VphWGD0sy6d94KnLSllpW15FTbzoycMAZQXsuyXO3dQrTIWVo2Z3yxtoMqRPxhnDPzdHnr+016GF7xZWEAeCnLclMUxXYPxCbw+L6A63OLOdtdCspiQHR+ge+f8zkIX5abZeZZFIjZvfmA2aa7J0nCQa/veMCmml2ZxYLYtkKff1wJIb7ZPtNXLniQunE8EwDA25WFMZ9oQBhB/9OBe4t3/IkKRAdmryOCuldFB2LMVkNnsa0jK0qQGkVK6RxsowXxDbbRg7gG23cB4hJs3w2IbbB9VyA2wbYsy49j7qD6Lgpn+Vem+bKI2HaZzivx44tgPjc7iBFXNkS0AoCtTtY4XcadAoPrWATIVI2Zop4DSEPxL5YQHsqr5mdTAAAAAElFTkSuQmCC);
         }
+
+        .M-menu {
+            position: absolute;
+            left: 0;
+            bottom: 100%;
+            width: 100%;
+            height: 0;
+            background-color: #fff;
+            box-shadow: 1px 0 1px rgba(0, 0, 0, 0.25);
+            border-radius: 0 5px 0 0;
+            transition: height .8s;
+            overflow: hidden;
+
+            .header {
+                height: 33px;
+                background-color: $color-blue;
+                padding: $music-padding;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-family: Microsoft YaHei,Arial,Helvetica,sans-serif;
+
+                .list {
+                    color: #fff;
+                    font-size: 14px;
+                    font-weight: 700;
+                }
+
+                .close {
+                    width: 20px;
+                    height: 20px;
+                    display: block;
+                    border-radius: 50%;
+                    background-color: #fff;
+                    color: $color-blue;
+                    font-size: 20px;
+                    text-align: center;
+                    line-height: 20px;
+                    cursor: pointer;
+                }
+            }
+
+            .body {
+                font-family: -apple-system,"Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+
+                .item {
+                    color: $color-gray;
+                    background-color: #fff;
+                    font-size: 13px;
+                    padding: 5px 10px;
+                    display: flex;
+                    height: 30px;
+                    line-height: 20px;
+
+                    &:hover {
+                        color: $color-gray-hover;
+                        background-color: $color-gray-bg;
+
+                        .left {
+                            .hover {
+                                display: block;
+                            }
+                        }
+                    }
+
+                    .left {
+                        flex: 1;
+                        display: flex;
+                        justify-content: space-between;
+                        padding-right: 100px;
+                        padding-left: 30px;
+                        position: relative;
+                        
+                        .name {
+                            cursor: pointer;
+                        }
+
+                        .hover {
+                            display: none;
+                            position: absolute;
+                            right: 20px;
+                            top: 0;
+                            height: 20px;
+                        }
+                    }
+
+                    .right {
+                        width: 120px;
+                    }
+                }
+            }
+        }
+
+        .menu-show {
+            height: 500px;
+        }
     }
 </style>
 
@@ -204,9 +333,12 @@
             <div class="M-warp">
                 <img class="M-face" ref="banner">
                 <div class="M-control">
-                    <div>
-                        <a>{{ source.name }}</a>
-                        <a>{{ source.player }}</a>
+                    <div class="header">
+                        <div>
+                            <a>{{ source.name }}</a>
+                            <a>{{ source.player }}</a>
+                        </div>
+                        <button :class="['menu-btn', status.menuShow ? 'menu-click' : '']" @click="status.menuShow = !status.menuShow"></button>
                     </div>
                     <div class="center">
                         <button></button>
@@ -218,7 +350,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="bottom">
+                    <div class="footer">
                         <span>{{ time.cur }} / {{ time.all }}</span>
                     </div>
                 </div>
@@ -227,6 +359,28 @@
                 <span class="M-curBar" ref="curtime"></span>
             </span>
             <div class="M-tip" v-show="tipShow" ref="tip">{{ tipText }}<em><i></i></em></div>
+            <div :class="['M-menu', status.menuShow ? 'menu-show' : '']">
+                <div class="header">
+                    <span class="list">歌曲列表</span>
+                    <span class="close" @click="status.menuShow = false">&times;</span>
+                </div>
+                <div class="body">
+                    <div class="item" v-for="item in list">
+                        <div class="left">
+                            <div>
+                                <span class="name" @click="loadSource(item)">{{ item.name }}</span>
+                            </div>
+                            <div class="hover">
+                                <button>播</button>
+                                <button>列</button>
+                            </div>
+                        </div>
+                        <div class="right">
+                            {{ item.player }}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <button class="toggle" @click="musicToggle"></button>
     </div>
@@ -236,7 +390,7 @@
 
     export default {
         props: {
-            source : {
+            list : {
                 default : null,
                 required : true
             }
@@ -252,12 +406,14 @@
                 init : true,
                 status : {
                     playing : false,
-                    silent : false
+                    silent : false,
+                    menuShow : false
                 },
                 time : {
                     cur : "00:00",
                     all : "00:00"
-                }
+                },
+                source : {}
             }
         },
         methods: {
@@ -272,9 +428,16 @@
 
                     this.init = false;
 
-                    this.$refs.audio.setAttribute('src', this.source.src);
-
-                    this.$refs.banner.setAttribute('src', this.source.img);
+                    this.loadSource(this.list[0], false)
+                }
+            },
+            loadSource (item, bool = true) {
+                this.source = item;
+                this.$refs.audio.setAttribute('src', this.source.src);
+                this.$refs.banner.setAttribute('src', this.source.img);
+                if (bool) {
+                    this.$refs.audio.play();
+                    this.status.playing = true;
                 }
             },
             formatSeconds (second) {
@@ -344,7 +507,7 @@
             };
 
 
-            vm.$refs.paused.onclick = function () {
+            this.$refs.paused.onclick = function () {
                 vm.status.playing = !vm.status.playing;
                 audio.paused ? audio.play() : audio.pause()
             };
