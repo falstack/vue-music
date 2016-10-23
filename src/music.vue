@@ -549,7 +549,9 @@
         created () {
             let i;
             for (i in this.source) {
-                this.list.push(this.source[i].id)
+                this.list.push(this.source[i].id);
+                Vue.set(this.source[i], 'playing', false);
+                Vue.set(this.source[i], 'selected', true);
             }
         },
         methods: {
