@@ -489,7 +489,7 @@
                 </div>
                 <div class="body">
                     <div class="title">
-                        <a class="select selected"></a>
+                        <a :class="['select', list.length === source.length ? 'selected' : '']" @click="selectAll"></a>
                         <div class="left">歌曲</div>
                         <div class="right">歌手</div>
                     </div>
@@ -576,8 +576,9 @@
             },
             next (bool) {
                 if (this.status.model === 'loop') return;
-                let id = this.now.id;
                 let length = this.list.length;
+                if (length === 0) return;
+                let id = this.now.id;
                 let i, j, now;
                 if (this.status.model === 'list') {
                     for (i in this.list) {
@@ -592,6 +593,21 @@
                     if (this.source[j].id === now) {
                         this.loadSource(this.source[j]);
                         break
+                    }
+                }
+            },
+            selectAll () {
+                let i;
+                if (this.list.length === this.source.length) {
+                    this.list = [];
+                    for (i in this.source) {
+                        this.source[i].selected = false
+                    }
+                } else {
+                    this.list = [];
+                    for (i in this.source) {
+                        this.source[i].selected = true;
+                        this.list.push(this.source[i].id)
                     }
                 }
             },

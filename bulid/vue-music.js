@@ -689,8 +689,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 	        next: function next(bool) {
 	            if (this.status.model === 'loop') return;
-	            var id = this.now.id;
 	            var length = this.list.length;
+	            if (length === 0) return;
+	            var id = this.now.id;
 	            var i = void 0,
 	                j = void 0,
 	                now = void 0;
@@ -706,6 +707,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	                if (this.source[j].id === now) {
 	                    this.loadSource(this.source[j]);
 	                    break;
+	                }
+	            }
+	        },
+	        selectAll: function selectAll() {
+	            var i = void 0;
+	            if (this.list.length === this.source.length) {
+	                this.list = [];
+	                for (i in this.source) {
+	                    this.source[i].selected = false;
+	                }
+	            } else {
+	                this.list = [];
+	                for (i in this.source) {
+	                    this.source[i].selected = true;
+	                    this.list.push(this.source[i].id);
 	                }
 	            }
 	        },
@@ -939,7 +955,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }, ["×"])]), " ", _h('div', {
 	    staticClass: "body"
-	  }, [_m(3), " ", _l((source), function(item) {
+	  }, [_h('div', {
+	    staticClass: "title"
+	  }, [_h('a', {
+	    class: ['select', list.length === source.length ? 'selected' : ''],
+	    on: {
+	      "click": selectAll
+	    }
+	  }), " ", _m(3), " ", _m(4)]), " ", _l((source), function(item) {
 	    return _h('div', {
 	      staticClass: "item"
 	    }, [_h('div', {
@@ -1007,14 +1030,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, ["歌曲列表"])
 	}},function (){with(this) {
 	  return _h('div', {
-	    staticClass: "title"
-	  }, [_h('a', {
-	    staticClass: "select selected"
-	  }), " ", _h('div', {
 	    staticClass: "left"
-	  }, ["歌曲"]), " ", _h('div', {
+	  }, ["歌曲"])
+	}},function (){with(this) {
+	  return _h('div', {
 	    staticClass: "right"
-	  }, ["歌手"])])
+	  }, ["歌手"])
 	}}]}
 	if (false) {
 	  module.hot.accept()
