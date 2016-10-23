@@ -22,7 +22,8 @@
         z-index: 1000;
         transition: left .6s ease;
         display: flex;
-        
+        font-family: -apple-system,"Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+
         a {
             cursor: pointer;
         }
@@ -111,15 +112,8 @@
                 flex: 1;
                 display: flex;
 
-                .lg-btn {
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                }
-
-                .sm-btn {
-                    width: 20px;
-                    height: 20px;
+                .M-model {
+                    margin-right: 20px;
                 }
 
                 .M-play-control {
@@ -259,6 +253,8 @@
             border-radius: 0 5px 0 0;
             transition: height .8s;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
 
             .header {
                 height: 33px;
@@ -267,7 +263,6 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                font-family: Microsoft YaHei,Arial,Helvetica,sans-serif;
 
                 .list {
                     color: #fff;
@@ -286,11 +281,13 @@
                     text-align: center;
                     line-height: 20px;
                     cursor: pointer;
+                    font-family: Microsoft YaHei,Arial,Helvetica,sans-serif;
                 }
             }
 
             .body {
-                font-family: -apple-system,"Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+                overflow-y: auto;
+                flex: 1;
 
                 >div {
                     padding: 5px 10px;
@@ -321,13 +318,10 @@
 
                     &:hover {
                         background-color: $color-gray-bg;
+                        color: $color-gray-hover;
 
                         .hover {
                             display: block;
-                        }
-
-                        .name, .select, .right {
-                            color: $color-gray-hover;
                         }
                     }
 
@@ -337,6 +331,15 @@
                         right: 20px;
                         top: 0;
                         height: 20px;
+
+                        .play {
+                            margin-right: 5px;
+                            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABSElEQVRYR+2WMW7CMBSG/0fYyw3gBnCD9iidUZFYMjQTLGmkMCARMdObhBvADcIN2gM0DxnVVdK6lg1OPJCMeXb85/fn34/g+SHP66MT0DnQqAOzMHpmxrAKOhFOmzTeyXcNC3jNAXqsnzTeb9K3p1YETMNo0uNyUBVQUu9jm8aHVgTMQs8OfDMw+sVA0SID9w6hyT1jdAxVMDFjma3ihW4RZxCqYALKPFsluV7AhYHbIXwJozWYx3Wa6b1Ks0qIah6Ijlkaz61ywPsWiEQLwA/VvwwCPq2TpFDVvkCfIu10NWcO6EBzBqEq0/t9FNKB//Le6i7QgaZjwJkDQgCBJ3WaaSdIt60x6CBIV82TtT8MqJoHoNyLs25bk02HVUNia7NMQmdbYJLbTYz5uQu8O6DLe9saES5Nh/eGxGTLjK5jkw9dO6YTcAZlW0kwunbEUgAAAABJRU5ErkJggg==);
+                        }
+                        
+                        .menu {
+                            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAC0UlEQVRYR91WUVLaUBQ9N6H+1h1oV6BdQXEF1RWovx2Y4gzMQH7EjxKnpNO0pP2trqC4AuIKSlcg7gA/pUlO5wKJgaIBK9VpPt/c3Hfuueee+wSP/Mkj34//F0ChYrkgNwTomjl+co+Pe7PYXhoDxYrFiQtJt+XYB9MglgKgUK7mRYwOiDOAPgV1gTwn0M39Wtly3Xo/BrIUAMWKtQfgG4kjz2nUS6X6apC79kVkIz77JwBC4OXXZqOrl41ADLoiWDPN6EWsiaUwcNtoF8u1EkQ+gjxoObarcQmAYtlqQ/CapJ/LcT8MpQPIeoZPnLSajf10zLDSZ4MOyL5OgMDwPzvvzoYsVKvrYWhcqDZaTmN7JgCA56bJvSAwfKXrTgCpRHFcIsDJEehFEepfPtino+ngeatp5ycAPJQjFspWXQSHKjYY7Eoke8qs5ifYFsj2kgHUTkRkl4y2POfY14vfVKxNg9TzjVGhS2SgWKn5gLxqNRsTAr9tFO81BSMxyZpp8nLaYrXHJC49p/GHgMejWMoFK25sRnMD0J/D3PUhMOzpaqIZog9B2zSjo0ForJrAj7TKs7Q1FwDtoUl09GKCVzpeJHoiWCewqTYLok/AFUF92u3uApEJYFT54GJ4OXGUpi9OnBjM+IDCHe+93c6qfmIM4/UJQd9r2jvTybOqUl0EgbRV6WmrzQJx44Rj9ZL86Tn2ZgJgfJ729duSFsqWtmVtegL+qgWF8niuM2iN20Dy1HNs3YZzfZkaSFbrjF0+Yb8wvqtOFqF/biuOWQDYI8SNgHNds2Pf3wUQV7zfajZO5ip9HJTJQFJlxXIFeDsruY4myO3YepcCQJMOHTDQZSJ5CHUseyLiL1p1GuDcDCxS1SKxTwfA9Ds+CPXplPL8RcpKxaptz3qOxyEJA4VyrTt8tYJXESQ/XCoP8Gk+r2nfLK+pnE+nBQ9Q7L1SPDoDvwGgOncwDjIoMgAAAABJRU5ErkJggg==);
+                        }
                     }
 
                     .select {
@@ -352,6 +355,8 @@
                     padding-right: 100px;
                     padding-left: 30px;
                     position: relative;
+                    width: 380px;
+                    overflow: hidden;
 
                     .icon {
                         display: block;
@@ -374,6 +379,9 @@
 
                 .right {
                     width: 120px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
                 }
 
                 .select {
@@ -404,6 +412,27 @@
         .menu-show {
             height: 500px;
         }
+
+        .lg-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .sm-btn {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    .M-dot {
+        margin: 0 5px;
+        font-size: 12px;
+
+        &:after {
+            content: "•";
+            color: $color-gray;
+        }
     }
 
     .M-open {
@@ -425,16 +454,17 @@
                     <div class="header">
                         <div>
                             <a>{{ now.name }}</a>
+                            <span class="M-dot"></span>
                             <a>{{ now.player }}</a>
                         </div>
                         <button :class="['menu-btn', status.menuShow ? 'menu-click' : '']" @click="status.menuShow = !status.menuShow"></button>
                     </div>
                     <div class="center">
                         <div class="M-play-control">
-                            <button :class="['sm-btn', 'M-model-' + status.model]" @click="changeModel"></button>
                             <button class="sm-btn prev" @click="next(false)"></button>
                             <button :class="[ 'lg-btn', status.playing ? 'play-go' : 'play-wait']" ref="paused"></button>
                             <button class="sm-btn next" @click="next(true)"></button>
+                            <button :class="['sm-btn', 'M-model', 'M-model-' + status.model]" @click="changeModel"></button>
                         </div>
                         <div class="M-voice-control">
                             <button :class="[ 'sm-btn', status.silent ? 'voice-no' : 'voice-go' ]" ref="muted"></button>
@@ -468,16 +498,14 @@
                             <a :class="['select', item.selected ? 'selected' : '']" @click="musicSelect(item)"></a>
                             <div>
                                 <span v-show="item.playing" :class="['icon', status.playing ? 'icon-play' : 'icon-pause']"></span>
-                                <a class="name" @click="loadSource(item)">{{ item.name }}</a>
+                                <a @click="loadSource(item)">{{ item.name }}</a>
                             </div>
                             <div class="hover">
-                                <button @click="loadSource(item)">播</button>
-                                <button @click="musicSelect(item)">列</button>
+                                <button title="点击播放" class="sm-btn play" @click="loadSource(item)"></button>
+                                <button title="加入列表" class="sm-btn menu" @click="musicSelect(item)"></button>
                             </div>
                         </div>
-                        <div class="right">
-                            {{ item.player }}
-                        </div>
+                        <span class="right">{{ item.player }}</span>
                     </div>
                 </div>
             </div>
@@ -567,7 +595,9 @@
             },
             loadSource (item, bool = true) {
                 if (this.now.playing !== undefined) {
-                    this.now.playing = false
+                    if (this.now.id === item.id)
+                        return;
+                    this.now.playing = false;
                 }
                 item.playing = true;
                 this.now = item;

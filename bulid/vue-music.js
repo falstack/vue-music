@@ -598,6 +598,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	//
 	//
 	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
 	
 	
 	exports.default = {
@@ -683,6 +711,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var bool = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 	
 	            if (this.now.playing !== undefined) {
+	                if (this.now.id === item.id) return;
 	                this.now.playing = false;
 	            }
 	            item.playing = true;
@@ -830,7 +859,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    staticClass: "M-control"
 	  }, [_h('div', {
 	    staticClass: "header"
-	  }, [_h('div', [_h('a', [_s(now.name)]), " ", _h('a', [_s(now.player)])]), " ", _h('button', {
+	  }, [_h('div', [_h('a', [_s(now.name)]), " ", _m(0), " ", _h('a', [_s(now.player)])]), " ", _h('button', {
 	    class: ['menu-btn', status.menuShow ? 'menu-click' : ''],
 	    on: {
 	      "click": function($event) {
@@ -842,11 +871,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, [_h('div', {
 	    staticClass: "M-play-control"
 	  }, [_h('button', {
-	    class: ['sm-btn', 'M-model-' + status.model],
-	    on: {
-	      "click": changeModel
-	    }
-	  }), " ", _h('button', {
 	    staticClass: "sm-btn prev",
 	    on: {
 	      "click": function($event) {
@@ -862,6 +886,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      "click": function($event) {
 	        next(true)
 	      }
+	    }
+	  }), " ", _h('button', {
+	    class: ['sm-btn', 'M-model', 'M-model-' + status.model],
+	    on: {
+	      "click": changeModel
 	    }
 	  })]), " ", _h('div', {
 	    staticClass: "M-voice-control"
@@ -895,11 +924,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }],
 	    ref: "tip",
 	    staticClass: "M-tip"
-	  }, [_s(tipText), _m(0)]), " ", _h('div', {
+	  }, [_s(tipText), _m(1)]), " ", _h('div', {
 	    class: ['M-menu', status.menuShow ? 'menu-show' : '']
 	  }, [_h('div', {
 	    staticClass: "header"
-	  }, [_m(1), " ", _h('span', {
+	  }, [_m(2), " ", _h('span', {
 	    staticClass: "close",
 	    on: {
 	      "click": function($event) {
@@ -908,7 +937,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }, ["×"])]), " ", _h('div', {
 	    staticClass: "body"
-	  }, [_m(2), " ", _l((source), function(item) {
+	  }, [_m(3), " ", _l((source), function(item) {
 	    return _h('div', {
 	      staticClass: "item"
 	    }, [_h('div', {
@@ -928,7 +957,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }],
 	      class: ['icon', status.playing ? 'icon-play' : 'icon-pause']
 	    }), " ", _h('a', {
-	      staticClass: "name",
 	      on: {
 	        "click": function($event) {
 	          loadSource(item)
@@ -937,20 +965,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, [_s(item.name)])]), " ", _h('div', {
 	      staticClass: "hover"
 	    }, [_h('button', {
+	      staticClass: "sm-btn play",
+	      attrs: {
+	        "title": "点击播放"
+	      },
 	      on: {
 	        "click": function($event) {
 	          loadSource(item)
 	        }
 	      }
-	    }, ["播"]), " ", _h('button', {
+	    }), " ", _h('button', {
+	      staticClass: "sm-btn menu",
+	      attrs: {
+	        "title": "加入列表"
+	      },
 	      on: {
 	        "click": function($event) {
 	          musicSelect(item)
 	        }
 	      }
-	    }, ["列"])])]), " ", _h('div', {
+	    })])]), " ", _h('span', {
 	      staticClass: "right"
-	    }, ["\n                        " + _s(item.player) + "\n                    "])])
+	    }, [_s(item.player)])])
 	  })])])]), " ", _h('button', {
 	    staticClass: "toggle",
 	    on: {
@@ -958,6 +994,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  })])
 	}},staticRenderFns: [function (){with(this) {
+	  return _h('span', {
+	    staticClass: "M-dot"
+	  })
+	}},function (){with(this) {
 	  return _h('em', [_h('i')])
 	}},function (){with(this) {
 	  return _h('span', {
