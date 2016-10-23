@@ -525,6 +525,79 @@ return /******/ (function(modules) { // webpackBootstrap
 	//
 	//
 	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
 	
 	
 	exports.default = {
@@ -546,7 +619,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            status: {
 	                playing: false,
 	                silent: false,
-	                menuShow: false
+	                menuShow: false,
+	                model: "list"
 	            },
 	            time: {
 	                cur: "00:00",
@@ -558,38 +632,52 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    created: function created() {
 	        var i = void 0;
-	        this.list = this.source;
-	        for (i in this.list) {
-	            this.list[i].playing = false;
-	            this.source[i].playing = false;
+	        for (i in this.source) {
+	            this.list.push(this.source[i].id);
 	        }
 	    },
 	
 	    methods: {
 	        musicToggle: function musicToggle() {
-	            var box = this.$refs.box;
-	
-	            this.open ? box.style.left = "-541px" : box.style.left = "0px";
-	
 	            this.open = !this.open;
 	
 	            if (this.init) {
 	
 	                this.init = false;
 	
-	                this.loadSource(this.list[0], false);
+	                this.loadSource(this.source[0], false);
 	            }
 	        },
+	        musicSelect: function musicSelect(item) {
+	            if (item.id === this.now.id) return;
+	            if (item.selected) {
+	                this.list.splice(this.list.indexOf(item.id), 1);
+	            } else {
+	                this.list.push(item.id);
+	            }
+	            item.selected = !item.selected;
+	        },
 	        next: function next(bool) {
+	            if (this.status.model === 'loop') return;
 	            var id = this.now.id;
 	            var length = this.list.length;
-	            var t = 0;
-	            var i = void 0;
-	            for (i in this.list) {
-	                if (this.list[i].id === id) break;
+	            var i = void 0,
+	                j = void 0,
+	                now = void 0;
+	            if (this.status.model === 'list') {
+	                for (i in this.list) {
+	                    if (this.list[i] === id) break;
+	                }
+	                now = this.list[bool ? i == length - 1 ? 0 : ++i : i == 0 ? --length : --i];
+	            } else {
+	                now = this.list[Math.floor(Math.random() * length + 1) - 1];
 	            }
-	            t = bool ? i == length - 1 ? 0 : ++i : i == 0 ? --length : --i;
-	            this.loadSource(this.list[t]);
+	            for (j in this.source) {
+	                if (this.source[j].id === now) {
+	                    this.loadSource(this.source[j]);
+	                    break;
+	                }
+	            }
 	        },
 	        loadSource: function loadSource(item) {
 	            var bool = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
@@ -605,6 +693,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.$refs.audio.play();
 	                this.status.playing = true;
 	            }
+	        },
+	        changeModel: function changeModel() {
+	            var ret = "";
+	            switch (this.status.model) {
+	                case "list":
+	                    ret = "rand";
+	                    this.$refs.audio.loop = false;
+	                    break;
+	                case "rand":
+	                    ret = "loop";
+	                    this.$refs.audio.loop = true;
+	                    break;
+	                case "loop":
+	                    ret = "list";
+	                    this.$refs.audio.loop = false;
+	                    break;
+	            }
+	            this.status.model = ret;
 	        },
 	        formatSeconds: function formatSeconds(second) {
 	            var minute = 0;
@@ -640,6 +746,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        audio.onended = function () {
 	            // console.log("onended : 音乐播放完毕");
 	            vm.status.playing = false;
+	            vm.next(true);
 	        };
 	
 	        audio.onloadedmetadata = function () {
@@ -706,7 +813,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports={render:function (){with(this) {
 	  return _h('div', {
-	    ref: "box",
+	    class: [open ? 'M-open' : 'M-close'],
 	    attrs: {
 	      "id": "music"
 	    }
@@ -735,6 +842,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, [_h('div', {
 	    staticClass: "M-play-control"
 	  }, [_h('button', {
+	    class: ['sm-btn', 'M-model-' + status.model],
+	    on: {
+	      "click": changeModel
+	    }
+	  }), " ", _h('button', {
 	    staticClass: "sm-btn prev",
 	    on: {
 	      "click": function($event) {
@@ -796,26 +908,47 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }, ["×"])]), " ", _h('div', {
 	    staticClass: "body"
-	  }, [_l((source), function(item) {
+	  }, [_m(2), " ", _l((source), function(item) {
 	    return _h('div', {
 	      staticClass: "item"
 	    }, [_h('div', {
 	      staticClass: "left"
-	    }, [_h('div', [_h('span', {
+	    }, [_h('a', {
+	      class: ['select', item.selected ? 'selected' : ''],
+	      on: {
+	        "click": function($event) {
+	          musicSelect(item)
+	        }
+	      }
+	    }), " ", _h('div', [_h('span', {
 	      directives: [{
 	        name: "show",
 	        value: (item.playing),
 	        expression: "item.playing"
 	      }],
 	      class: ['icon', status.playing ? 'icon-play' : 'icon-pause']
-	    }), " ", _h('span', {
+	    }), " ", _h('a', {
 	      staticClass: "name",
 	      on: {
 	        "click": function($event) {
 	          loadSource(item)
 	        }
 	      }
-	    }, [_s(item.name)])]), " ", _m(2)]), " ", _h('div', {
+	    }, [_s(item.name)])]), " ", _h('div', {
+	      staticClass: "hover"
+	    }, [_h('button', {
+	      on: {
+	        "click": function($event) {
+	          loadSource(item)
+	        }
+	      }
+	    }, ["播"]), " ", _h('button', {
+	      on: {
+	        "click": function($event) {
+	          musicSelect(item)
+	        }
+	      }
+	    }, ["列"])])]), " ", _h('div', {
 	      staticClass: "right"
 	    }, ["\n                        " + _s(item.player) + "\n                    "])])
 	  })])])]), " ", _h('button', {
@@ -832,8 +965,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, ["歌曲列表"])
 	}},function (){with(this) {
 	  return _h('div', {
-	    staticClass: "hover"
-	  }, [_h('button', ["播"]), " ", _h('button', ["列"])])
+	    staticClass: "title"
+	  }, [_h('a', {
+	    staticClass: "select selected"
+	  }), " ", _h('div', {
+	    staticClass: "left"
+	  }, ["歌曲"]), " ", _h('div', {
+	    staticClass: "right"
+	  }, ["歌手"])])
 	}}]}
 	if (false) {
 	  module.hot.accept()

@@ -16,13 +16,16 @@
         height: $music-height;
         position: fixed;
         bottom: 30px;
-        left: -541px;
         background-color: #fff;
         box-shadow: 3px 1px 6px rgba(0,0,0,.25);
         border-radius: 0 4px 4px 0;
         z-index: 1000;
         transition: left .6s ease;
         display: flex;
+        
+        a {
+            cursor: pointer;
+        }
 
         div {
             box-sizing: border-box;
@@ -139,6 +142,18 @@
 
                     .next {
                         background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABRklEQVRYR+2W0W3DIBCG7zboBu0IFgzQjtARnA3SDewJ6o6QDTKCOwDoukG6QTIAdxUSSDSV7QTZuA/mFQ4+fu6OH2HlgSufDxvApsCkAlrrV+ccEdHpnoStquoJER9F5IuIzkOxowBKqT0ivvtgEWmste2tEFprCWsPxpg6F6BHxOcYLCInZt4RUT8FEgFE5NNa+zILQALSMXM7Ju2iAOFJRtVYHCCR9Oic88/yK9FKAvgEPSPizhhzjGBFAa7UePMluxZAVKMBgC7kyvxVMFWC6fwiZfjvAfytYwMrrcAltOxujSQ8OOf2sR8UAxCRb2aur/+HIgAi0lprfcn9GYsC+MQKtx70CEsBXACgTlvuUEnOBZAakg9mbsa+4BRmFkPiN1RK1czcZ1iyCgAeAMDbuTxLdk/Hy107aUpzN741bgPYFPgB0WE7MPsLEL4AAAAASUVORK5CYII=);
+                    }
+
+                    .M-model-list {
+                        background-image: url("./list.png");
+                    }
+
+                    .M-model-loop {
+                        background-image: url("./loop.png");
+                    }
+
+                    .M-model-rand {
+                        background-image: url("./rand.png");
                     }
                 }
 
@@ -277,67 +292,110 @@
             .body {
                 font-family: -apple-system,"Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
 
+                >div {
+                    padding: 5px 10px;
+                }
+
+                .title {
+                    height: 30px;
+                    border-bottom: 1px solid $color-gray-bg;
+                    position: relative;
+                    display: flex;
+                    font-size: 14px;
+                    color: #333;
+
+                    .select {
+                        left: 15px;
+                        top: 8px;
+                        z-index: 5;
+                    }
+                }
+
                 .item {
                     color: $color-gray;
                     background-color: #fff;
                     font-size: 13px;
-                    padding: 5px 10px;
                     display: flex;
                     height: 30px;
                     line-height: 20px;
 
                     &:hover {
-                        color: $color-gray-hover;
                         background-color: $color-gray-bg;
 
-                        .left {
-                            .hover {
-                                display: block;
-                            }
-                        }
-                    }
-
-                    .left {
-                        flex: 1;
-                        display: flex;
-                        justify-content: space-between;
-                        padding-right: 100px;
-                        padding-left: 30px;
-                        position: relative;
-
-                        .icon {
-                            display: block;
-                            width: 14px;
-                            height: 14px;
-                            background-repeat: no-repeat;
-                            background-position: center;
-                            float: left;
-                            margin-right: 8px;
-                        }
-
-                        .icon-pause {
-                            background-image: url(data:image/gif;base64,R0lGODlhDgAOAJEAAAAAAP///0up5v///yH5BAEAAAMALAAAAAAOAA4AAAIenI+pqyKMHDySybrusw8PrH2dM4omWYbomZIsq7YFADs=);
-                        }
-
-                        .icon-play {
-                            background-image: url(data:image/gif;base64,R0lGODlhDgAOAIABAEup5v///yH/C05FVFNDQVBFMi4wAwEAAAAh/wtYTVAgRGF0YVhNUDw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MkEzQUQ5MjJEQjlBMTFFMThEMDRBNjJDNENEOTY3NjYiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MkEzQUQ5MjFEQjlBMTFFMThEMDRBNjJDNENEOTY3NjYiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmRpZDozMjFGRTgzMjhCREJFMTExQkI4Njk1NTQ5Q0Y0QUZDNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDozMjFGRTgzMjhCREJFMTExQkI4Njk1NTQ5Q0Y0QUZDNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PgH//v38+/r5+Pf29fTz8vHw7+7t7Ovq6ejn5uXk4+Lh4N/e3dzb2tnY19bV1NPS0dDPzs3My8rJyMfGxcTDwsHAv769vLu6ubi3trW0s7KxsK+urayrqqmop6alpKOioaCfnp2cm5qZmJeWlZSTkpGQj46NjIuKiYiHhoWEg4KBgH9+fXx7enl4d3Z1dHNycXBvbm1sa2ppaGdmZWRjYmFgX15dXFtaWVhXVlVUU1JRUE9OTUxLSklIR0ZFRENCQUA/Pj08Ozo5ODc2NTQzMjEwLy4tLCsqKSgnJiUkIyIhIB8eHRwbGhkYFxYVFBMSERAPDg0MCwoJCAcGBQQDAgEAACH5BAkoAAEALAAAAAAOAA4AAAIejI+pqwCMHDySybrusw8HrH2dM4omWYbomZIsq7YFACH5BAkoAAEALAAAAAAOAA4AAAIejI+py+0IwIqHKhsoztLo7oEfJEpjdJpqynHs96oFACH5BAUoAAEALAAAAAAOAA4AAAIdjI+py+0PFQBwLmtwploHC07c+I1hiYrkqaYrUAAAOw==);
-                        }
-                        
-                        .name {
-                            cursor: pointer;
-                        }
-
                         .hover {
-                            display: none;
-                            position: absolute;
-                            right: 20px;
-                            top: 0;
-                            height: 20px;
+                            display: block;
+                        }
+
+                        .name, .select, .right {
+                            color: $color-gray-hover;
                         }
                     }
 
-                    .right {
-                        width: 120px;
+                    .hover {
+                        display: none;
+                        position: absolute;
+                        right: 20px;
+                        top: 0;
+                        height: 20px;
+                    }
+
+                    .select {
+                        left: 5px;
+                        top: 3px;
+                    }
+                }
+
+                .left {
+                    flex: 1;
+                    display: flex;
+                    justify-content: space-between;
+                    padding-right: 100px;
+                    padding-left: 30px;
+                    position: relative;
+
+                    .icon {
+                        display: block;
+                        width: 14px;
+                        height: 14px;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        float: left;
+                        margin-right: 8px;
+                    }
+
+                    .icon-pause {
+                        background-image: url(data:image/gif;base64,R0lGODlhDgAOAJEAAAAAAP///0up5v///yH5BAEAAAMALAAAAAAOAA4AAAIenI+pqyKMHDySybrusw8PrH2dM4omWYbomZIsq7YFADs=);
+                    }
+
+                    .icon-play {
+                        background-image: url(data:image/gif;base64,R0lGODlhDgAOAIABAEup5v///yH/C05FVFNDQVBFMi4wAwEAAAAh/wtYTVAgRGF0YVhNUDw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MkEzQUQ5MjJEQjlBMTFFMThEMDRBNjJDNENEOTY3NjYiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MkEzQUQ5MjFEQjlBMTFFMThEMDRBNjJDNENEOTY3NjYiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmRpZDozMjFGRTgzMjhCREJFMTExQkI4Njk1NTQ5Q0Y0QUZDNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDozMjFGRTgzMjhCREJFMTExQkI4Njk1NTQ5Q0Y0QUZDNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PgH//v38+/r5+Pf29fTz8vHw7+7t7Ovq6ejn5uXk4+Lh4N/e3dzb2tnY19bV1NPS0dDPzs3My8rJyMfGxcTDwsHAv769vLu6ubi3trW0s7KxsK+urayrqqmop6alpKOioaCfnp2cm5qZmJeWlZSTkpGQj46NjIuKiYiHhoWEg4KBgH9+fXx7enl4d3Z1dHNycXBvbm1sa2ppaGdmZWRjYmFgX15dXFtaWVhXVlVUU1JRUE9OTUxLSklIR0ZFRENCQUA/Pj08Ozo5ODc2NTQzMjEwLy4tLCsqKSgnJiUkIyIhIB8eHRwbGhkYFxYVFBMSERAPDg0MCwoJCAcGBQQDAgEAACH5BAkoAAEALAAAAAAOAA4AAAIejI+pqwCMHDySybrusw8HrH2dM4omWYbomZIsq7YFACH5BAkoAAEALAAAAAAOAA4AAAIejI+py+0IwIqHKhsoztLo7oEfJEpjdJpqynHs96oFACH5BAUoAAEALAAAAAAOAA4AAAIdjI+py+0PFQBwLmtwploHC07c+I1hiYrkqaYrUAAAOw==);
+                    }
+                }
+
+                .right {
+                    width: 120px;
+                }
+
+                .select {
+                    display: block;
+                    position: absolute;
+                    width: 12px;
+                    height: 12px;
+                    border-radius: 4px;
+                    border: 1px solid $color-gray;
+                }
+
+                .selected {
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        display: block;
+                        left: 2px;
+                        top: 2px;
+                        width: 7px;
+                        height: 7px;
+                        border-radius: 3px;
+                        background-color: $color-blue;
                     }
                 }
             }
@@ -347,10 +405,18 @@
             height: 500px;
         }
     }
+
+    .M-open {
+        left: 0;
+    }
+
+    .M-close {
+        left: -541px;
+    }
 </style>
 
 <template v-cloak>
-    <div id="music" ref="box">
+    <div id="music" :class="[ open ? 'M-open' : 'M-close' ]">
         <audio ref="audio"></audio>
         <div class="M-main">
             <div class="M-warp">
@@ -365,6 +431,7 @@
                     </div>
                     <div class="center">
                         <div class="M-play-control">
+                            <button :class="['sm-btn', 'M-model-' + status.model]" @click="changeModel"></button>
                             <button class="sm-btn prev" @click="next(false)"></button>
                             <button :class="[ 'lg-btn', status.playing ? 'play-go' : 'play-wait']" ref="paused"></button>
                             <button class="sm-btn next" @click="next(true)"></button>
@@ -391,15 +458,21 @@
                     <span class="close" @click="status.menuShow = false">&times;</span>
                 </div>
                 <div class="body">
+                    <div class="title">
+                        <a class="select selected"></a>
+                        <div class="left">歌曲</div>
+                        <div class="right">歌手</div>
+                    </div>
                     <div class="item" v-for="item in source">
                         <div class="left">
+                            <a :class="['select', item.selected ? 'selected' : '']" @click="musicSelect(item)"></a>
                             <div>
                                 <span v-show="item.playing" :class="['icon', status.playing ? 'icon-play' : 'icon-pause']"></span>
-                                <span class="name" @click="loadSource(item)">{{ item.name }}</span>
+                                <a class="name" @click="loadSource(item)">{{ item.name }}</a>
                             </div>
                             <div class="hover">
-                                <button>播</button>
-                                <button>列</button>
+                                <button @click="loadSource(item)">播</button>
+                                <button @click="musicSelect(item)">列</button>
                             </div>
                         </div>
                         <div class="right">
@@ -434,7 +507,8 @@
                 status : {
                     playing : false,
                     silent : false,
-                    menuShow : false
+                    menuShow : false,
+                    model : "list"
                 },
                 time : {
                     cur : "00:00",
@@ -446,38 +520,50 @@
         },
         created () {
             let i;
-            this.list = this.source;
-            for (i in this.list) {
-                this.list[i].playing = false;
-                this.source[i].playing = false
+            for (i in this.source) {
+                this.list.push(this.source[i].id)
             }
         },
         methods: {
             musicToggle () {
-                var box = this.$refs.box;
-
-                this.open ? box.style.left = "-541px" : box.style.left = "0px";
-
                 this.open = !this.open;
 
                 if (this.init) {
 
                     this.init = false;
 
-                    this.loadSource(this.list[0], false)
+                    this.loadSource(this.source[0], false)
                 }
             },
+            musicSelect (item) {
+                if (item.id === this.now.id) return;
+                if (item.selected) {
+                    this.list.splice(this.list.indexOf(item.id), 1)
+                } else {
+                    this.list.push(item.id)
+                }
+                item.selected = !item.selected;
+            },
             next (bool) {
+                if (this.status.model === 'loop') return;
                 let id = this.now.id;
                 let length = this.list.length;
-                let t = 0;
-                let i;
-                for (i in this.list) {
-                    if (this.list[i].id === id)
-                        break
+                let i, j, now;
+                if (this.status.model === 'list') {
+                    for (i in this.list) {
+                        if (this.list[i] === id)
+                            break
+                    }
+                    now = this.list[bool ? i == length - 1 ? 0 : ++i : i == 0 ? --length : --i];
+                } else {
+                    now = this.list[Math.floor(Math.random() * length + 1) - 1]
                 }
-                t = bool ? i == length - 1 ? 0 : ++i : i == 0 ? --length : --i;
-                this.loadSource(this.list[t])
+                for (j in this.source) {
+                    if (this.source[j].id === now) {
+                        this.loadSource(this.source[j]);
+                        break
+                    }
+                }
             },
             loadSource (item, bool = true) {
                 if (this.now.playing !== undefined) {
@@ -491,6 +577,24 @@
                     this.$refs.audio.play();
                     this.status.playing = true;
                 }
+            },
+            changeModel () {
+                let ret = "";
+                switch (this.status.model) {
+                    case "list" :
+                        ret = "rand";
+                        this.$refs.audio.loop = false;
+                        break;
+                    case "rand" :
+                        ret = "loop";
+                        this.$refs.audio.loop = true;
+                        break;
+                    case "loop" :
+                        ret = "list";
+                        this.$refs.audio.loop = false;
+                        break;
+                }
+                this.status.model = ret;
             },
             formatSeconds (second) {
                 var minute = 0;
@@ -525,7 +629,8 @@
 
             audio.onended = function () {
                 // console.log("onended : 音乐播放完毕");
-                vm.status.playing = false
+                vm.status.playing = false;
+                vm.next(true)
             };
 
             audio.onloadedmetadata = function () {
@@ -557,7 +662,6 @@
                 vm.status.silent = !vm.status.silent;
                 audio.muted = !audio.muted;
             };
-
 
             this.$refs.paused.onclick = function () {
                 vm.status.playing = !vm.status.playing;
