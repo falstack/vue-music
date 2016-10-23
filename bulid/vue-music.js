@@ -498,6 +498,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	//
 	//
 	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
 	
 	
 	exports.default = {
@@ -528,6 +547,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            source: {}
 	        };
 	    },
+	    created: function created() {
+	        var i = void 0;
+	        for (i in this.list) {
+	            this.list[i].playing = false;
+	        }
+	    },
 	
 	    methods: {
 	        musicToggle: function musicToggle() {
@@ -547,6 +572,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        loadSource: function loadSource(item) {
 	            var bool = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 	
+	            if (this.source.playing !== undefined) {
+	                this.source.playing = false;
+	            }
+	            item.playing = true;
 	            this.source = item;
 	            this.$refs.audio.setAttribute('src', this.source.src);
 	            this.$refs.banner.setAttribute('src', this.source.img);
@@ -741,6 +770,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, [_h('div', {
 	      staticClass: "left"
 	    }, [_h('div', [_h('span', {
+	      directives: [{
+	        name: "show",
+	        value: (item.playing),
+	        expression: "item.playing"
+	      }],
+	      class: ['icon', status.playing ? 'icon-play' : 'icon-pause']
+	    }), " ", _h('span', {
 	      staticClass: "name",
 	      on: {
 	        "click": function($event) {

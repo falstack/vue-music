@@ -87,7 +87,7 @@
                 .menu-btn {
                     background-repeat: no-repeat;
                     background-position: center;
-                    background-image: url("./menu.png");
+                    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAgCAYAAABkWOo9AAABRUlEQVRYR+2WwU3DMBiF308XKBPQDSgbMAIXnAPCoZe63MoG3YD0BOWSpBKHhgMZoRvQERgBjgjBjwJYDVUj1dUvlEb2LYrz8vy9+MWEHRm0Iz7hjUon1QyiN9PsgoAQjHwQqnGZ0iSdJUx0IEWOwAujg6sqvUqid/dZlz/wZB+kFo76Z2pRXE+mD0OAr6VMWp1PoHepVbJOdyujBek9IK6F0W9y6WwEomMwz00YjFai/7knNda8oyzdjM0kBUtCxxOVoNi8b/Q2zSIQDol4bM6D3K4wjh/bb633okc7guSeB1r1nAv/T6kzXkyo9q1IrQp/xcyr0aptjdau8IvoidAFcVSOvvQbPZGLnnKjTyPn6OUMyCj5HpXhuFTxRP+VaFXh/x4BRU/4AHzh1+qEn4Co4wvfYcf5enKAtdFUT3QjTA6TvgCUWZsh4jKUuwAAAABJRU5ErkJggg==);
                     background-size: 20px;
                     width: 20px;
                     height: 20px;
@@ -299,6 +299,24 @@
                         padding-right: 100px;
                         padding-left: 30px;
                         position: relative;
+
+                        .icon {
+                            display: block;
+                            width: 14px;
+                            height: 14px;
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            float: left;
+                            margin-right: 8px;
+                        }
+
+                        .icon-pause {
+                            background-image: url(data:image/gif;base64,R0lGODlhDgAOAJEAAAAAAP///0up5v///yH5BAEAAAMALAAAAAAOAA4AAAIenI+pqyKMHDySybrusw8PrH2dM4omWYbomZIsq7YFADs=);
+                        }
+
+                        .icon-play {
+                            background-image: url(data:image/gif;base64,R0lGODlhDgAOAIABAEup5v///yH/C05FVFNDQVBFMi4wAwEAAAAh/wtYTVAgRGF0YVhNUDw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MkEzQUQ5MjJEQjlBMTFFMThEMDRBNjJDNENEOTY3NjYiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MkEzQUQ5MjFEQjlBMTFFMThEMDRBNjJDNENEOTY3NjYiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmRpZDozMjFGRTgzMjhCREJFMTExQkI4Njk1NTQ5Q0Y0QUZDNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDozMjFGRTgzMjhCREJFMTExQkI4Njk1NTQ5Q0Y0QUZDNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PgH//v38+/r5+Pf29fTz8vHw7+7t7Ovq6ejn5uXk4+Lh4N/e3dzb2tnY19bV1NPS0dDPzs3My8rJyMfGxcTDwsHAv769vLu6ubi3trW0s7KxsK+urayrqqmop6alpKOioaCfnp2cm5qZmJeWlZSTkpGQj46NjIuKiYiHhoWEg4KBgH9+fXx7enl4d3Z1dHNycXBvbm1sa2ppaGdmZWRjYmFgX15dXFtaWVhXVlVUU1JRUE9OTUxLSklIR0ZFRENCQUA/Pj08Ozo5ODc2NTQzMjEwLy4tLCsqKSgnJiUkIyIhIB8eHRwbGhkYFxYVFBMSERAPDg0MCwoJCAcGBQQDAgEAACH5BAkoAAEALAAAAAAOAA4AAAIejI+pqwCMHDySybrusw8HrH2dM4omWYbomZIsq7YFACH5BAkoAAEALAAAAAAOAA4AAAIejI+py+0IwIqHKhsoztLo7oEfJEpjdJpqynHs96oFACH5BAUoAAEALAAAAAAOAA4AAAIdjI+py+0PFQBwLmtwploHC07c+I1hiYrkqaYrUAAAOw==);
+                        }
                         
                         .name {
                             cursor: pointer;
@@ -368,6 +386,7 @@
                     <div class="item" v-for="item in list">
                         <div class="left">
                             <div>
+                                <span v-show="item.playing" :class="['icon', status.playing ? 'icon-play' : 'icon-pause']"></span>
                                 <span class="name" @click="loadSource(item)">{{ item.name }}</span>
                             </div>
                             <div class="hover">
@@ -416,6 +435,12 @@
                 source : {}
             }
         },
+        created () {
+            let i;
+            for (i in this.list) {
+                this.list[i].playing = false
+            }
+        },
         methods: {
             musicToggle () {
                 var box = this.$refs.box;
@@ -432,6 +457,10 @@
                 }
             },
             loadSource (item, bool = true) {
+                if (this.source.playing !== undefined) {
+                    this.source.playing = false
+                }
+                item.playing = true;
                 this.source = item;
                 this.$refs.audio.setAttribute('src', this.source.src);
                 this.$refs.banner.setAttribute('src', this.source.img);
