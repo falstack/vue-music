@@ -517,11 +517,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	//
 	//
 	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
 	
 	
 	exports.default = {
 	    props: {
-	        list: {
+	        source: {
 	            default: null,
 	            required: true
 	        }
@@ -544,13 +552,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	                cur: "00:00",
 	                all: "00:00"
 	            },
-	            source: {}
+	            now: {},
+	            list: []
 	        };
 	    },
 	    created: function created() {
 	        var i = void 0;
+	        this.list = this.source;
 	        for (i in this.list) {
 	            this.list[i].playing = false;
+	            this.source[i].playing = false;
 	        }
 	    },
 	
@@ -569,16 +580,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.loadSource(this.list[0], false);
 	            }
 	        },
+	        next: function next(bool) {
+	            var id = this.now.id;
+	            var length = this.list.length;
+	            var t = 0;
+	            var i = void 0;
+	            for (i in this.list) {
+	                if (this.list[i].id === id) break;
+	            }
+	            t = bool ? i == length - 1 ? 0 : ++i : i == 0 ? --length : --i;
+	            this.loadSource(this.list[t]);
+	        },
 	        loadSource: function loadSource(item) {
 	            var bool = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 	
-	            if (this.source.playing !== undefined) {
-	                this.source.playing = false;
+	            if (this.now.playing !== undefined) {
+	                this.now.playing = false;
 	            }
 	            item.playing = true;
-	            this.source = item;
-	            this.$refs.audio.setAttribute('src', this.source.src);
-	            this.$refs.banner.setAttribute('src', this.source.img);
+	            this.now = item;
+	            this.$refs.audio.setAttribute('src', this.now.src);
+	            this.$refs.banner.setAttribute('src', this.now.img);
 	            if (bool) {
 	                this.$refs.audio.play();
 	                this.status.playing = true;
@@ -701,7 +723,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    staticClass: "M-control"
 	  }, [_h('div', {
 	    staticClass: "header"
-	  }, [_h('div', [_h('a', [_s(source.name)]), " ", _h('a', [_s(source.player)])]), " ", _h('button', {
+	  }, [_h('div', [_h('a', [_s(now.name)]), " ", _h('a', [_s(now.player)])]), " ", _h('button', {
 	    class: ['menu-btn', status.menuShow ? 'menu-click' : ''],
 	    on: {
 	      "click": function($event) {
@@ -710,20 +732,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  })]), " ", _h('div', {
 	    staticClass: "center"
-	  }, [_m(0), " ", _h('button', {
-	    ref: "paused",
-	    class: [status.playing ? 'play-go' : 'play-wait'],
-	    attrs: {
-	      "id": "paused"
+	  }, [_h('div', {
+	    staticClass: "M-play-control"
+	  }, [_h('button', {
+	    staticClass: "sm-btn prev",
+	    on: {
+	      "click": function($event) {
+	        next(false)
+	      }
 	    }
-	  }), " ", _h('div', {
+	  }), " ", _h('button', {
+	    ref: "paused",
+	    class: ['lg-btn', status.playing ? 'play-go' : 'play-wait']
+	  }), " ", _h('button', {
+	    staticClass: "sm-btn next",
+	    on: {
+	      "click": function($event) {
+	        next(true)
+	      }
+	    }
+	  })]), " ", _h('div', {
 	    staticClass: "M-voice-control"
 	  }, [_h('button', {
 	    ref: "muted",
-	    class: [status.silent ? 'voice-no' : 'voice-go'],
-	    attrs: {
-	      "id": "muted"
-	    }
+	    class: ['sm-btn', status.silent ? 'voice-no' : 'voice-go']
 	  }), " ", _h('span', {
 	    ref: "allvoice",
 	    staticClass: "M-all-voice"
@@ -751,11 +783,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }],
 	    ref: "tip",
 	    staticClass: "M-tip"
-	  }, [_s(tipText), _m(1)]), " ", _h('div', {
+	  }, [_s(tipText), _m(0)]), " ", _h('div', {
 	    class: ['M-menu', status.menuShow ? 'menu-show' : '']
 	  }, [_h('div', {
 	    staticClass: "header"
-	  }, [_m(2), " ", _h('span', {
+	  }, [_m(1), " ", _h('span', {
 	    staticClass: "close",
 	    on: {
 	      "click": function($event) {
@@ -764,7 +796,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }, ["×"])]), " ", _h('div', {
 	    staticClass: "body"
-	  }, [_l((list), function(item) {
+	  }, [_l((source), function(item) {
 	    return _h('div', {
 	      staticClass: "item"
 	    }, [_h('div', {
@@ -783,7 +815,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          loadSource(item)
 	        }
 	      }
-	    }, [_s(item.name)])]), " ", _m(3)]), " ", _h('div', {
+	    }, [_s(item.name)])]), " ", _m(2)]), " ", _h('div', {
 	      staticClass: "right"
 	    }, ["\n                        " + _s(item.player) + "\n                    "])])
 	  })])])]), " ", _h('button', {
@@ -793,8 +825,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  })])
 	}},staticRenderFns: [function (){with(this) {
-	  return _h('button')
-	}},function (){with(this) {
 	  return _h('em', [_h('i')])
 	}},function (){with(this) {
 	  return _h('span', {
