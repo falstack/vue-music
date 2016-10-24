@@ -88,6 +88,13 @@
                 justify-content: space-between;
                 align-items: center;
                 font-size: 14px;
+
+                .left {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    max-width: 380px;
+                }
                 
                 .menu-btn {
                     background-repeat: no-repeat;
@@ -351,7 +358,6 @@
                 .left {
                     flex: 1;
                     display: flex;
-                    justify-content: space-between;
                     padding-right: 100px;
                     padding-left: 30px;
                     position: relative;
@@ -452,7 +458,7 @@
                 <img class="M-face" ref="banner">
                 <div class="M-control">
                     <div class="header">
-                        <div>
+                        <div class="left">
                             <a>{{ now.name }}</a>
                             <span class="M-dot"></span>
                             <a>{{ now.player }}</a>
@@ -668,11 +674,11 @@
             audio.volume = 0.5;
 
             audio.oncanplay = function () {
-                // 缓冲已足够开始时
+                // console.log('oncanplay : 缓冲已足够开始时');
             };
 
             audio.oncanplaythrough = function () {
-                // 缓冲已完成
+                // console.log('oncanplaythrough : 缓冲已完成');
             };
 
             audio.onended = function () {
@@ -681,10 +687,15 @@
                 vm.next(true)
             };
 
-            audio.onloadedmetadata = function () {
-                // 数据的分辨率或时间长度已加载完成
+            audio.ondurationchange = function () {
+                // console.log('ondurationchange : 视频/音频（audio/video）的时长发生变化');
                 var time = vm.formatSeconds(this.duration);
                 vm.time.all = time[1] + ":" + time[2];
+            };
+            
+            audio.onerror = function () {
+//                console.log('onerror');
+                vm.next(true)
             };
 
             audio.onplay = function () {
@@ -715,10 +726,6 @@
                 vm.status.playing = !vm.status.playing;
                 audio.paused ? audio.play() : audio.pause()
             };
-
-//            document.getElementById('loop').onclick = function () {
-//                audio.loop = !audio.loop;
-//            };
 
             this.$refs.allvoice.onclick = function (e) {
                 audio.volume = e.layerX / vm.voiceWidth;

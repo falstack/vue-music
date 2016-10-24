@@ -626,6 +626,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	//
 	//
 	//
+	//
+	//
+	//
+	//
+	//
+	//
 	
 	
 	exports.default = {
@@ -783,11 +789,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        audio.volume = 0.5;
 	
 	        audio.oncanplay = function () {
-	            // 缓冲已足够开始时
+	            // console.log('oncanplay : 缓冲已足够开始时');
 	        };
 	
 	        audio.oncanplaythrough = function () {
-	            // 缓冲已完成
+	            // console.log('oncanplaythrough : 缓冲已完成');
 	        };
 	
 	        audio.onended = function () {
@@ -796,10 +802,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	            vm.next(true);
 	        };
 	
-	        audio.onloadedmetadata = function () {
-	            // 数据的分辨率或时间长度已加载完成
+	        audio.ondurationchange = function () {
+	            // console.log('ondurationchange : 视频/音频（audio/video）的时长发生变化');
 	            var time = vm.formatSeconds(this.duration);
 	            vm.time.all = time[1] + ":" + time[2];
+	        };
+	
+	        audio.onerror = function () {
+	            //                console.log('onerror');
+	            vm.next(true);
 	        };
 	
 	        audio.onplay = function () {
@@ -830,10 +841,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            vm.status.playing = !vm.status.playing;
 	            audio.paused ? audio.play() : audio.pause();
 	        };
-	
-	        //            document.getElementById('loop').onclick = function () {
-	        //                audio.loop = !audio.loop;
-	        //            };
 	
 	        this.$refs.allvoice.onclick = function (e) {
 	            audio.volume = e.layerX / vm.voiceWidth;
@@ -877,7 +884,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    staticClass: "M-control"
 	  }, [_h('div', {
 	    staticClass: "header"
-	  }, [_h('div', [_h('a', [_s(now.name)]), " ", _m(0), " ", _h('a', [_s(now.player)])]), " ", _h('button', {
+	  }, [_h('div', {
+	    staticClass: "left"
+	  }, [_h('a', [_s(now.name)]), " ", _m(0), " ", _h('a', [_s(now.player)])]), " ", _h('button', {
 	    class: ['menu-btn', status.menuShow ? 'menu-click' : ''],
 	    on: {
 	      "click": function($event) {
